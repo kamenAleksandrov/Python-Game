@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 class Action:
 
+    # this forces other extenders to implement their own perform
     def perform(self, engine: Engine, entity: Entity) -> None:
         raise NotImplementedError()
 
