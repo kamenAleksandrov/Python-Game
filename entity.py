@@ -1,27 +1,29 @@
 from __future__ import annotations
 
 import copy
-from typing import Optional, Tuple, TypeVar, TYPE_CHECKING
+from typing import Optional, Tuple, TypeVar, TYPE_CHECKING, Type
 
 if TYPE_CHECKING:
     from game_map import GameMap
+    from components.ai import BaseAI
+    from components.fighter import Fighter
 
 T = TypeVar("T", bound="Entity")
 
 
 class Entity:
-
     # a generic object to represent players, enemies, items etc.
     gamemap: GameMap
+
     def __init__(
-        self,
-        gamemap: Optional[GameMap] = None,
-        x: int = 0,
-        y: int = 0,
-        char: str = '?',
-        color: Tuple[int, int, int] = (255, 255, 255),
-        name: str = "<Unnamed>",
-        blocks_movement: bool = False,
+            self,
+            gamemap: Optional[GameMap] = None,
+            x: int = 0,
+            y: int = 0,
+            char: str = '?',
+            color: Tuple[int, int, int] = (255, 255, 255),
+            name: str = "<Unnamed>",
+            blocks_movement: bool = False,
     ):
         self.x = x
         self.y = y
@@ -55,3 +57,34 @@ class Entity:
     def move(self, dx: int, dy: int) -> None:
         self.x += dx
         self.y += dy
+
+
+class Actor(Entity):
+    def __init__(
+            self,
+            *,
+            x: int = 0,
+            y: int = 0,
+            char: str = "?",
+            color: Tuple[int, int, int] = (255, 255, 255),
+            name: str = "<Unamed>",
+            ai_cls: Type[BaseAI],
+            fighter: Fighter
+    ):
+        super().__init__(
+            x=x,
+            y=y,
+            char=char,
+            color=color,
+            name=name,
+            blocks_movement=True,
+        )
+
+        self.ai: Optional[BaseAI] = ai_cls(self)
+
+        self.fighter = fighter
+        self.fighter.entity = self
+
+    @property
+    def is_alive(self) -> bool:
+        return bool(self.ai)
