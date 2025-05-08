@@ -4,11 +4,46 @@ from typing import Optional, TYPE_CHECKING
 import tcod.event
 from tcod.event import T
 
+from actions import Action, EscapeAction, BumpAction, WaitAction
+
 if TYPE_CHECKING:
     from engine import Engine
 
+MOVE_KEYS = {
+# arrow keys
+    tcod.event.K_UP: (0,-1),
+    tcod.event.K_DOWN: (0,1),
+    tcod.event.K_LEFT: (-1,0),
+    tcod.event.K_RIGHT: (1,0),
+    tcod.event.K_HOME: (-1,-1),
+    tcod.event.K_END: (-1,1),
+    tcod.event.K_PAGEUP: (1,-1),
+    tcod.event.K_PAGEDOWN: (1,1),
+# NUMPAD
+    tcod.event.K_KP_1: (-1,1),
+    tcod.event.K_KP_2: (0,1),
+    tcod.event.K_KP_3: (1,1),
+    tcod.event.K_KP_4: (-1,0),
+    tcod.event.K_KP_6: (1,0),
+    tcod.event.K_KP_7: (-1,-1),
+    tcod.event.K_KP_8: (0,-1),
+    tcod.event.K_KP_9: (1, -1),
+# vi keys
+    tcod.event.K_h: (0,-1),
+    tcod.event.K_j: (0,1),
+    tcod.event.K_k: (-1,0),
+    tcod.event.K_l: (1,0),
+    tcod.event.K_y: (-1,-1),
+    tcod.event.K_u: (-1,1),
+    tcod.event.K_b: (1,-1),
+    tcod.event.K_n: (1,1),
+}
 
-from actions import Action, EscapeAction, BumpAction
+WAIT_KEYS = {
+    tcod.event.K_PERIOD,
+    tcod.event.K_KP_5,
+    tcod.event.K_CLEAR,
+}
 
 class EventHandler(tcod.event.EventDispatch[Action]):
     def __init__(self, engine: Engine):
@@ -35,15 +70,11 @@ class EventHandler(tcod.event.EventDispatch[Action]):
         key = event.sym
         player = self.engine.player
 
-        if key == tcod.event.KeySym.UP:
-            action = BumpAction(player, dx=0, dy=-1)
-        elif key == tcod.event.KeySym.DOWN:
-            action = BumpAction(player, dx=0, dy=1)
-        elif key == tcod.event.KeySym.LEFT:
-            action = BumpAction(player, dx=-1, dy=0)
-        elif key == tcod.event.KeySym.RIGHT:
-            action = BumpAction(player, dx=1, dy=0)
-
+        if key in MOVE_KEYS:
+            dx, dy = MOVE_KEYS[key]
+            action = BumpAction(player, dx, dy)
+        elif key in WAIT_KEYS:
+            action = WaitAction(player)
         elif key == tcod.event.KeySym.ESCAPE:
             action = EscapeAction(player)
 
