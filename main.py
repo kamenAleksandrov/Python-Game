@@ -40,7 +40,7 @@ def main() -> None:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Hello and welcome, adventurer, to yet another dungeon!", color.welcome_text
+        "Hello adventurer,suffer well in yet another dungeon!", color.welcome_text
     )
 
     # this is how we create the map
