@@ -9,6 +9,8 @@ if TYPE_CHECKING:
     from game_map import GameMap
     from components.ai import BaseAI
     from components.fighter import Fighter
+    from components.consumable import Consumable
+    from components.inventory import Inventory
 
 T = TypeVar("T", bound="Entity")
 
@@ -42,7 +44,7 @@ class Entity:
 
     @property
     def gamemap(self) -> GameMap:
-            return self.parent.gamemap
+        return self.parent.gamemap
 
     def spawn(self: T, gamemap: GameMap, x: int, y: int) -> T:
         clone = copy.deepcopy(self)
@@ -78,7 +80,9 @@ class Actor(Entity):
             color: Tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unamed>",
             ai_cls: Type[BaseAI],
-            fighter: Fighter
+            fighter: Fighter,
+            inventory: Inventory,
+
     ):
         super().__init__(
             x=x,
@@ -95,6 +99,36 @@ class Actor(Entity):
         self.fighter = fighter
         self.fighter.parent = self
 
+        self.inventory = inventory
+        self.inventory.parent = self
+
     @property
     def is_alive(self) -> bool:
         return bool(self.ai)
+
+
+class Item(Entity):
+    def __init__(
+            self,
+            *,
+            x: int = 0,
+            y: int = 0,
+            char: str = "?",
+            color: Tuple[int, int, int] = (255, 255, 255),
+            name: str = "<Unnamed>",
+            consumable: Consumable,
+    ):
+        super().__init__(
+            x=x,
+            y=y,
+            char=char,
+            color=color,
+            name=name,
+            blocks_movement=False,
+            render_order=RenderOrder.ITEM,
+        )
+
+        self.consumable = consumable
+        self.consumable.parent = self
+
+# todo monsters use inventory and drop items on death
