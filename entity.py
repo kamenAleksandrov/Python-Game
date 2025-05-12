@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import math
 from typing import Optional, Tuple, TypeVar, TYPE_CHECKING, Type, Union
 
 from render_order import RenderOrder
@@ -68,6 +69,9 @@ class Entity:
     def move(self, dx: int, dy: int) -> None:
         self.x += dx
         self.y += dy
+
+    def distance(self, x: int, y: int) -> float:
+        return math.sqrt((x - self.x) ** 2 + (y - self.y) ** 2)
 
 
 class Actor(Entity):

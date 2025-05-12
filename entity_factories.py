@@ -1,7 +1,7 @@
 from entity import Actor, Item
 from components.fighter import Fighter
 from components.ai import HostileEnemy
-from components.consumable import HealingConsumable
+from components import consumable
 from components.inventory import Inventory
 
 player = Actor(
@@ -35,5 +35,12 @@ health_potion = Item(
     char="8",
     color=(127, 0, 255),
     name="Health Potion",
-    consumable=HealingConsumable(amount=5),
+    consumable=consumable.HealingConsumable(amount=5),
+)
+
+lightning_scroll = Item(
+    char="~",
+    color=(255, 255, 0),
+    name="Lightning Scroll",
+    consumable=consumable.LightningDamageConsumable(damage=20, maximum_range=5),
 )
