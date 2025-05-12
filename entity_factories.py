@@ -5,7 +5,7 @@ from components import consumable
 from components.inventory import Inventory
 
 player = Actor(
-    char="@",
+    char="P",
     color=(255, 255, 255),
     name="Player",
     ai_cls=HostileEnemy,
@@ -46,8 +46,15 @@ lightning_scroll = Item(
 )
 
 confusion_scroll = Item(
-    char="~",
+    char="~@",
     color=(207, 63, 255),
     name="Confusion Scroll",
     consumable=consumable.ConfusionConsumable(number_of_turns=5),
+)
+
+fireball_scroll = Item(
+    char="~^",
+    color=(255, 0, 0),
+    name="Fireball Scroll",
+    consumable=consumable.FireballDamageConsumable(damage=20, radius=3),
 )
