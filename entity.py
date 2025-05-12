@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import copy
-from typing import Optional, Tuple, TypeVar, TYPE_CHECKING, Type
+from typing import Optional, Tuple, TypeVar, TYPE_CHECKING, Type, Union
 
 from render_order import RenderOrder
 
@@ -17,7 +17,7 @@ T = TypeVar("T", bound="Entity")
 
 class Entity:
     # a generic object to represent players, enemies, items etc.
-    parent: GameMap
+    parent: Union[GameMap, Inventory]
 
     def __init__(
             self,

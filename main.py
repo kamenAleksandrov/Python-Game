@@ -73,3 +73,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+# todo add sound to the game
+# todo improve npc ai, maybe move away from turn based
+# todo npc can drop loot on death
+# todo keybinds menu

@@ -35,6 +35,7 @@ class Action:
             """
             raise NotImplementedError()
 
+
 class PickupAction(Action):
 
     def __init__(self, entity: Actor):
@@ -62,7 +63,7 @@ class PickupAction(Action):
 
 class ItemAction(Action):
     def __init__(
-        self, entity: Actor, item: Item, target_xy: Optional[Tuple[int, int]] = None
+            self, entity: Actor, item: Item, target_xy: Optional[Tuple[int, int]] = None
     ):
         super().__init__(entity)
         self.item = item
@@ -77,11 +78,6 @@ class ItemAction(Action):
     def perform(self) -> None:
         """Invoke the items ability, this action will be given to provide context."""
         self.item.consumable.activate(self)
-
-class EscapeAction(Action):
-
-    def perform(self) -> None:
-        raise SystemExit()
 
 
 class ActionWithDirection(Action):
@@ -133,7 +129,7 @@ class MeleeAction(ActionWithDirection):
 
         if damage > 0:
             self.engine.message_log.add_message(
-               f"{attack_desc} for {damage} damage.", attack_color
+                f"{attack_desc} for {damage} damage.", attack_color
             )
             target.fighter.hp -= damage
         else:
@@ -159,6 +155,12 @@ class MovementAction(ActionWithDirection):
 
         self.entity.move(self.dx, self.dy)
 
+
 class WaitAction(Action):
     def perform(self) -> None:
         pass
+
+
+class DropItem(ItemAction):
+    def perform(self) -> None:
+        self.entity.inventory.drop(self.item)
