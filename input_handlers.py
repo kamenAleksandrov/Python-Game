@@ -5,10 +5,12 @@ import tcod.event
 from tcod.event import T
 
 from actions import Action, BumpAction, WaitAction, PickupAction
+from tcod import libtcodpy
 
 import color
 import exceptions
 import actions
+import os
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -116,7 +118,6 @@ class EventHandler(BaseEventHandler):
     def on_render(self, console: tcod.Console) -> None:
         self.engine.render(console)
 
-
 class MainGameEventHandler(EventHandler):
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
@@ -144,11 +145,20 @@ class MainGameEventHandler(EventHandler):
             return LookHandler(self.engine)
         return action
 
-
 class GameOverEventHandler(EventHandler):
+
+    def on_quit(self) -> None:
+
+        if os.path.exists("savegame.sav"):
+            os.remove("savegame.sav")
+        raise  exceptions.QuitWithoutSaving()
+
+    def ev_quit(self, event: tcod.event.Quit) -> None:
+        self.on_quit()
+
     def ev_keydown(self, event: tcod.event.KeyDown) -> None:
         if event.sym == tcod.event.K_ESCAPE:
-            raise SystemExit()
+            self.on_quit()
 
 CURSOR_Y_KEYS = {
     tcod.event.KeySym.UP: -1,
@@ -171,7 +181,7 @@ class HistoryViewer(EventHandler):
 
         log_console.draw_frame(0, 0, log_console.width, log_console.height)
         log_console.print_box(
-            0, 0, log_console.width, 1, "|Message history|", alignment=tcod.CENTER
+            0, 0, log_console.width, 1, "|Message history|", alignment=libtcodpy.CENTER
         )
 
         self.engine.message_log.render_messages(
@@ -295,7 +305,6 @@ class InventoryActivateHandler(InventoryEventHandler):
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         return item.consumable.get_action(self.engine.player)
 
-
 class InventoryDropHandler(InventoryEventHandler):
 
     TITLE = "Select an item to drop"
@@ -356,7 +365,6 @@ class SelectIndexHandler(AskUserEventHandler):
         """Called when an index is selected."""
         raise NotImplementedError()
 
-
 class LookHandler(SelectIndexHandler):
     """Lets the player look around using the keyboard."""
 
@@ -405,3 +413,25 @@ class AreaRangedAttackHandler(SelectIndexHandler):
 
     def on_index_selected(self, x: int, y: int) -> Optional[Action]:
         return self.callback((x, y))
+
+class PopupMessage(BaseEventHandler):
+    def __init__(self, parent_handler: BaseEventHandler, text: str):
+        self.parent = parent_handler
+        self.text = text
+
+    def on_render(self, console: tcod.Console) -> None:
+        self.parent.on_render(console)
+        console.tiles_rgb["fg"] //=8
+        console.tiles_rgb["bg"] //=8
+
+        console.print(
+            console.width // 2,
+            console.height //2,
+            self.text,
+            fg=color.white,
+            bg=color.black,
+            alignment=libtcodpy.CENTER,
+        )
+    def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[BaseEventHandler]:
+        """Any key returns to the parent handler."""
+        return self.parent

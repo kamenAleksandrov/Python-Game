@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import copy
+import lzma
+import pickle
+import traceback
 from idlelib.runscript import indent_message
 from typing import Optional
 
@@ -17,8 +20,8 @@ import entity_factories
 import input_handlers
 from procgen import generate_dungeon
 
-
 background_image = tcod.image.load("Images/main_menu_image_resized.png")[:, :, :3]
+
 
 def new_game() -> Engine:
     map_width = 80
@@ -50,6 +53,13 @@ def new_game() -> Engine:
     engine.message_log.add_message(
         "Hello adventurer,suffer well in yet another dungeon!", color.welcome_text
     )
+    return engine
+
+
+def load_game(filename: str) -> Engine:
+    with open(filename, "rb") as f:
+        engine = pickle.loads(lzma.decompress(f.read()))
+    assert isinstance(engine, Engine)
     return engine
 
 
@@ -94,7 +104,13 @@ class MainMenu(input_handlers.BaseEventHandler):
         if event.sym in (tcod.event.KeySym.q, tcod.event.KeySym.ESCAPE):
             raise SystemExit()
         elif event.sym == tcod.event.KeySym.c:
-            pass
+            try:
+                return input_handlers.MainGameEventHandler(load_game("savegame.sav"))
+            except FileNotFoundError:
+                return input_handlers.PopupMessage(self, "No saved game to load.")
+            except Exception as exc:
+                traceback.print_exc()
+                return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
         elif event.sym == tcod.event.KeySym.n:
             return input_handlers.MainGameEventHandler(new_game())
 
