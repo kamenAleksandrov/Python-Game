@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38fe7103-c585-4b70-8ddd-7e74b04796f0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/components/level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/color.py" beforeDir="false" afterPath="$PROJECT_DIR$/color.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/fighter.py" beforeDir="false" afterPath="$PROJECT_DIR$/components/fighter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entity_factories.py" beforeDir="false" afterPath="$PROJECT_DIR$/entity_factories.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input_handlers.py" beforeDir="false" afterPath="$PROJECT_DIR$/input_handlers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/procgen.py" beforeDir="false" afterPath="$PROJECT_DIR$/procgen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savegame.sav" beforeDir="false" afterPath="$PROJECT_DIR$/savegame.sav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup_game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tile_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/tile_types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_log.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/render_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/render_functions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
