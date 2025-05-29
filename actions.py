@@ -110,7 +110,7 @@ class BumpAction(ActionWithDirection):
         if self.target_actor:
             return MeleeAction(self.entity, self.dx, self.dy).perform()
         else:
-            return MovementAction(self.entity, self.dx, self.dy).perform()
+            return MoveAndPickUpAction(self.entity, self.dx, self.dy).perform()
 
 
 class MeleeAction(ActionWithDirection):
@@ -156,6 +156,16 @@ class MovementAction(ActionWithDirection):
         self.entity.move(self.dx, self.dy)
 
 
+class MoveAndPickUpAction(MovementAction):
+    def perform(self) -> None:
+        super().perform()
+        if self.entity is self.engine.player:
+            try:
+                PickupAction(self.entity).perform()
+            except exceptions.Impossible:
+                pass
+
+
 class WaitAction(Action):
     def perform(self) -> None:
         pass
@@ -164,3 +174,13 @@ class WaitAction(Action):
 class DropItem(ItemAction):
     def perform(self) -> None:
         self.entity.inventory.drop(self.item)
+
+class TakeStairsAction(Action):
+    def perform(self) -> None:
+        if(self.entity.x, self.entity.y) == self.engine.game_map.stairsdown_location:
+            self.engine.game_world.generate_floor()
+            self.engine.message_log.add_message(
+                "You delve deeper into the dungeon!", color.descend
+            )
+        else:
+            raise exceptions.Impossible("There are ne stair here.")

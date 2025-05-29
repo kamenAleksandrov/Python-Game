@@ -77,3 +77,4 @@ if __name__ == "__main__":
 # todo add more monster types and give them ranged attacks
 # todo add main menu
 # todo function to save game
+# todo auto pickup
