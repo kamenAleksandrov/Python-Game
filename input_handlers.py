@@ -153,6 +153,8 @@ class MainGameEventHandler(EventHandler):
             return InventoryActivateHandler(self.engine)
         elif key == tcod.event.KeySym.u:
             return InventoryDropHandler(self.engine)
+        elif key == tcod.event.KeySym.c:
+            return CharacterScreenEventHandler(self.engine)
         elif key == tcod.event.KeySym.m:
             return LookHandler(self.engine)
         return action
@@ -321,9 +323,50 @@ class LevelUpEventHandler(AskUserEventHandler):
         Don't allow the player to click to exit the menu, like normal.
         """
         return None
+
+
 class CharacterScreenEventHandler(AskUserEventHandler):
     TITLE = "Character Stats"
 
+    def on_render(self, console: tcod.Console) -> None:
+        super().on_render(console)
+
+        if self.engine.player.x <= 30:
+            x = 40
+        else:
+            x = 0
+        y = 0
+
+        width = len(self.TITLE) + 10
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=7,
+            title=self.TITLE,
+            clear=True,
+            fg=(255, 255, 255),
+            bg=(0, 0, 0)
+        )
+
+        console.print(
+            x=x + 1, y=y + 1, string=f"Level: {self.engine.player.level.current_level}"
+        )
+        console.print(
+            x=x + 1, y=y + 2, string=f"XP: {self.engine.player.level.current_xp}"
+        )
+        console.print(
+            x=x + 1, y=y + 3,
+            string=f"XP for next level: {self.engine.player.level.experience_to_next_level
+                                         - self.engine.player.level.current_xp}"
+        )
+        console.print(
+            x=x + 1, y=y + 4, string=f"Attack: {self.engine.player.fighter.power}"
+        )
+        console.print(
+            x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defence}"
+        )
 
 
 class InventoryEventHandler(AskUserEventHandler):
@@ -362,7 +405,9 @@ class InventoryEventHandler(AskUserEventHandler):
         if number_of_items_in_inventory > 0:
             for i, item in enumerate(self.engine.player.inventory.items):
                 item_key = chr(ord("a") + i)
-                console.print(x + 1, y + i + 1, f"({item_key}) {item.name}")
+                quantity = getattr(item, "quantity", 1)
+                display_name = f"{item.name} (x{quantity})" if quantity > 1 else item.name
+                console.print(x + 1, y + i + 1, f"({item_key}) {display_name}")
         else:
             console.print(x + 1, y + 1, "(Empty)")
 

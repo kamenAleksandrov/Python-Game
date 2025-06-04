@@ -51,12 +51,25 @@ class PickupAction(Action):
                 if len(inventory.items) >= inventory.capacity:
                     raise exceptions.Impossible("Your inventory is full.")
 
-                self.engine.game_map.entities.remove(item)
-                item.parent = self.entity.inventory
-                inventory.items.append(item)
+                # item.parent = self.entity.inventory
+                for inv_item in inventory.items:
+                    if inv_item.name == item.name:
+                        inv_item.quantity += item.quantity
+                        self.engine.game_map.entities.remove(item)
+                        self.engine.message_log.add_message(f"You picked up another {item.name}! (x{item.quantity})")
+                        return
+                    else:
+                        item.parent = inventory
+                        inventory.items.append(item)
+                        self.engine.game_map.entities.remove(item)
+                        self.engine.message_log.add_message(f"You picked up {item.name}!")
+                    return
+                # if any(inv_item.name == item.name for inv_item in inventory.items):
+                #     item.quantity += 1
+                #     item.parent = inventory
+                #     inventory.items.append(item)
 
-                self.engine.message_log.add_message(f"You picked up {item.name}!")
-                return
+
 
         raise exceptions.Impossible("There is nothing to pick up.")
 
@@ -175,9 +188,10 @@ class DropItem(ItemAction):
     def perform(self) -> None:
         self.entity.inventory.drop(self.item)
 
+
 class TakeStairsAction(Action):
     def perform(self) -> None:
-        if(self.entity.x, self.entity.y) == self.engine.game_map.stairsdown_location:
+        if (self.entity.x, self.entity.y) == self.engine.game_map.stairsdown_location:
             self.engine.game_world.generate_floor()
             self.engine.message_log.add_message(
                 "You delve deeper into the dungeon!", color.descend

@@ -126,6 +126,7 @@ class Item(Entity):
             color: Tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unnamed>",
             consumable: Consumable,
+            quantity: int = 1,
     ):
         super().__init__(
             x=x,
@@ -139,5 +140,6 @@ class Item(Entity):
 
         self.consumable = consumable
         self.consumable.parent = self
+        self.quantity = quantity
 
 # todo monsters use inventory and drop items on death

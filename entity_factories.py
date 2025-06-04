@@ -39,7 +39,7 @@ health_potion = Item(
     char="8",
     color=(127, 0, 255),
     name="Health Potion",
-    consumable=consumable.HealingConsumable(amount=5),
+    consumable=consumable.HealingConsumable(healingamount=5),
 )
 
 lightning_scroll = Item(
