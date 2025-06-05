@@ -73,8 +73,9 @@ if __name__ == "__main__":
 # .done add dungeon floors
 # todo gear?
 # todo animate attacks and maybe use mouse click to attack. you get 1 attack per turn
-# todo inventory should be 1-n and best be clickable and not a-z.
+# .done inventory should be 1-n and best be clickable and not a-z.
 # todo add more monster types and give them ranged attacks
 # .done add main menu
 # .done function to save game
 # .done auto pickup
+# todo dropped items can be of higher quantity and can stack

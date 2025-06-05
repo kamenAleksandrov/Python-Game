@@ -13,11 +13,12 @@ if TYPE_CHECKING:
 class Fighter(BaseComponent):
     parent: Actor
 
-    def __init__(self, hp: int, defence: int, power: int):
+    def __init__(self, hp: int, defence: int, attack: int, precision: int):
         self.max_hp = hp
         self.hp = hp
         self.defence = defence
-        self.power = power
+        self.attack = attack
+        self.precision = precision
 
     @property
     def hp(self) -> int:

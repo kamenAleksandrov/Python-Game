@@ -1,5 +1,6 @@
 from __future__ import annotations  # this speed up load times
 
+import random
 from typing import Optional, Tuple, TYPE_CHECKING
 
 import color
@@ -129,23 +130,39 @@ class MeleeAction(ActionWithDirection):
         if not target:
             raise exceptions.Impossible("Nothing to attack.")
 
-        damage = self.entity.fighter.power - target.fighter.defence
-
-        attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
         if self.entity is self.engine.player:
             attack_color = color.player_attack
         else:
             attack_color = color.npc_attack
 
-        if damage > 0:
-            self.engine.message_log.add_message(
-                f"{attack_desc} for {damage} damage.", attack_color
-            )
-            target.fighter.hp -= damage
-        else:
-            self.engine.message_log.add_message(
-                f"{attack_desc} but does no damage.", attack_color
-            )
+        attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
+        attack_roll = random.randrange(1, 5)
+        damage = random.randrange(1, self.entity.fighter.attack)
+        armor_pernetration = target.fighter.defence - self.entity.fighter.precision
+        if armor_pernetration < 0:
+            armor_pernetration = 0
+
+        match attack_roll:
+            case 1:
+                self.engine.message_log.add_message(
+                    f"{attack_desc} but misses.", attack_color
+                )
+            case 10:
+                damage += self.entity.fighter.attack
+                self.engine.message_log.add_message(
+                    f"{attack_desc} and does critical damage.", attack_color
+                )
+            case _:
+                damage -= armor_pernetration
+                if damage > 0:
+                    self.engine.message_log.add_message(
+                        f"{attack_desc} for {damage} damage.", attack_color
+                    )
+                    target.fighter.hp -= damage
+                else:
+                    self.engine.message_log.add_message(
+                        f"{attack_desc} but does no damage.", attack_color
+                    )
 
 
 class MovementAction(ActionWithDirection):

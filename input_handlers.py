@@ -286,29 +286,36 @@ class LevelUpEventHandler(AskUserEventHandler):
         console.print(
             x=x + 1,
             y=4,
-            string=f"a) Constitution (+10 HP, from {self.engine.player.fighter.max_hp})",
+            string=f"1) Constitution (+10 HP, from {self.engine.player.fighter.max_hp})",
         )
         console.print(
             x=x + 1,
             y=5,
-            string=f"b) Strength (+1 attack, from {self.engine.player.fighter.power})",
+            string=f"2) Strength (+1 attack, from {self.engine.player.fighter.attack})",
         )
         console.print(
             x=x + 1,
             y=6,
-            string=f"c) Dexterity (+1 defense, from {self.engine.player.fighter.defence})",
+            string=f"3) Precision (+1 precision, from {self.engine.player.fighter.precision})",
+        )
+        console.print(
+            x=x + 1,
+            y=7,
+            string=f"4) Defence (+1 defense, from {self.engine.player.fighter.defence})",
         )
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         player = self.engine.player
         key = event.sym
-        index = key - tcod.event.KeySym.a
+        index = key - tcod.event.KeySym.N1
 
-        if 0 <= index <= 2:
+        if 0 <= index <= 3:
             if index == 0:
                 player.level.increase_max_hp()
             elif index == 1:
                 player.level.increase_attack()
+            elif index == 2:
+                player.level.increase_precision()
             else:
                 player.level.increase_defence()
         else:
@@ -343,7 +350,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             x=x,
             y=y,
             width=width,
-            height=7,
+            height=10,
             title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
@@ -362,10 +369,13 @@ class CharacterScreenEventHandler(AskUserEventHandler):
                                          - self.engine.player.level.current_xp}"
         )
         console.print(
-            x=x + 1, y=y + 4, string=f"Attack: {self.engine.player.fighter.power}"
+            x=x + 1, y=y + 4, string=f"Attack: {self.engine.player.fighter.attack}"
         )
         console.print(
-            x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defence}"
+            x=x + 1, y=y + 5, string=f"Precision: {self.engine.player.fighter.precision}"
+        )
+        console.print(
+            x=x + 1, y=y + 6, string=f"Defense: {self.engine.player.fighter.defence}"
         )
 
 
@@ -389,7 +399,7 @@ class InventoryEventHandler(AskUserEventHandler):
 
         y = 0
 
-        width = len(self.TITLE) + 4
+        width = len(self.TITLE) + 7
 
         console.draw_frame(
             x=x,

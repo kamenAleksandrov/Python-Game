@@ -15,7 +15,7 @@ class Level(BaseComponent):
             current_level: int = 1,
             current_xp: int = 0,
             level_up_base: int = 0,
-            level_up_factor: int = 150,
+            level_up_factor: int = 50,
             xp_given: int = 0,
     ):
             self.current_level=current_level
@@ -57,9 +57,14 @@ class Level(BaseComponent):
         self.increase_level()
 
     def increase_attack(self, amount: int = 1) -> None:
-        self.parent.fighter.power =+ amount
+        self.parent.fighter.attack =+ amount
 
         self.engine.message_log.add_message("Your constitution rises!")
+
+    def increase_precision(self, amount: int = 1) -> None:
+        self.parent.fighter.precision =+ amount
+
+        self.engine.message_log.add_message("Your precision rises!")
 
     def increase_defence(self, amount: int = 1) -> None:
         self.parent.fighter.defence += amount
