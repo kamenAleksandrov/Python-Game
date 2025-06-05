@@ -69,12 +69,12 @@ if __name__ == "__main__":
 # todo improve npc ai, maybe move away from turn based
 # todo npc can drop loot on death
 # todo keybinds menu
-# todo level up!
-# todo add dungeon floors
+# .done level up!
+# .done add dungeon floors
 # todo gear?
 # todo animate attacks and maybe use mouse click to attack. you get 1 attack per turn
-# todo inventory should be 1-X and best be clickable and not a-z.
+# todo inventory should be 1-n and best be clickable and not a-z.
 # todo add more monster types and give them ranged attacks
-# todo add main menu
-# todo function to save game
-# todo auto pickup
+# .done add main menu
+# .done function to save game
+# .done auto pickup

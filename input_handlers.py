@@ -404,7 +404,7 @@ class InventoryEventHandler(AskUserEventHandler):
 
         if number_of_items_in_inventory > 0:
             for i, item in enumerate(self.engine.player.inventory.items):
-                item_key = chr(ord("a") + i)
+                item_key = str(i + 1)
                 quantity = getattr(item, "quantity", 1)
                 display_name = f"{item.name} (x{quantity})" if quantity > 1 else item.name
                 console.print(x + 1, y + i + 1, f"({item_key}) {display_name}")
@@ -414,9 +414,8 @@ class InventoryEventHandler(AskUserEventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         player = self.engine.player
         key = event.sym
-        index = key - tcod.event.KeySym.a
-
-        if 0 <= index <= 25:
+        if tcod.event.KeySym.N1 <= key <= tcod.event.KeySym.N9:
+            index = key - tcod.event.KeySym.N1
             try:
                 selected_item = player.inventory.items[index]
             except IndexError:

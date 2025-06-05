@@ -8,9 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/actions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/consumable.py" beforeDir="false" afterPath="$PROJECT_DIR$/components/consumable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entity_factories.py" beforeDir="false" afterPath="$PROJECT_DIR$/entity_factories.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/components/inventory.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input_handlers.py" beforeDir="false" afterPath="$PROJECT_DIR$/input_handlers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/savegame.sav" beforeDir="false" afterPath="$PROJECT_DIR$/savegame.sav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

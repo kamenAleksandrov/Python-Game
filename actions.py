@@ -51,25 +51,22 @@ class PickupAction(Action):
                 if len(inventory.items) >= inventory.capacity:
                     raise exceptions.Impossible("Your inventory is full.")
 
-                # item.parent = self.entity.inventory
+                # Try to stack with existing item
                 for inv_item in inventory.items:
                     if inv_item.name == item.name:
                         inv_item.quantity += item.quantity
                         self.engine.game_map.entities.remove(item)
-                        self.engine.message_log.add_message(f"You picked up another {item.name}! (x{item.quantity})")
+                        self.engine.message_log.add_message(
+                            f"You picked up another {item.name}! (x{inv_item.quantity})"
+                        )
                         return
-                    else:
-                        item.parent = inventory
-                        inventory.items.append(item)
-                        self.engine.game_map.entities.remove(item)
-                        self.engine.message_log.add_message(f"You picked up {item.name}!")
-                    return
-                # if any(inv_item.name == item.name for inv_item in inventory.items):
-                #     item.quantity += 1
-                #     item.parent = inventory
-                #     inventory.items.append(item)
 
-
+                # No stackable match found — add as new item
+                item.parent = inventory
+                inventory.items.append(item)
+                self.engine.game_map.entities.remove(item)
+                self.engine.message_log.add_message(f"You picked up {item.name}!")
+                return
 
         raise exceptions.Impossible("There is nothing to pick up.")
 
