@@ -136,8 +136,8 @@ class MeleeAction(ActionWithDirection):
             attack_color = color.npc_attack
 
         attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
-        attack_roll = random.randrange(1, 5)
-        damage = random.randrange(1, self.entity.fighter.attack)
+        attack_roll = random.randint(1, 5)
+        damage = random.randint(1, self.entity.fighter.attack)
         armor_pernetration = target.fighter.defence - self.entity.fighter.precision
         if armor_pernetration < 0:
             armor_pernetration = 0
@@ -147,11 +147,12 @@ class MeleeAction(ActionWithDirection):
                 self.engine.message_log.add_message(
                     f"{attack_desc} but misses.", attack_color
                 )
-            case 10:
+            case 5:
                 damage += self.entity.fighter.attack
                 self.engine.message_log.add_message(
-                    f"{attack_desc} and does critical damage.", attack_color
+                    f"{attack_desc} and does critical damage - {damage}", attack_color
                 )
+                target.fighter.hp -= damage
             case _:
                 damage -= armor_pernetration
                 if damage > 0:

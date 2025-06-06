@@ -134,7 +134,7 @@ class MainGameEventHandler(EventHandler):
         player = self.engine.player
 
         if key == tcod.event.KeySym.PERIOD and modifier & (
-                tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT
+                tcod.event.Modifier.LSHIFT | tcod.event.Modifier.RSHIFT
         ):
             return actions.TakeStairsAction(player)
 
@@ -272,8 +272,8 @@ class LevelUpEventHandler(AskUserEventHandler):
         console.draw_frame(
             x=x,
             y=0,
-            width=35,
-            height=8,
+            width=38,
+            height=9,
             title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
@@ -350,7 +350,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             x=x,
             y=y,
             width=width,
-            height=10,
+            height=9,
             title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
