@@ -42,7 +42,11 @@ class HealingConsumable(Consumable):
 
         if amount_recovered > 0:
             self.engine.message_log.add_message(
-                f"You consume the {self.parent.name}, and recover {amount_recovered} HP!",
+                # f"You consume the {self.parent.name}, and recover {amount_recovered} HP!",
+                # above is commented because I randomly choose the healing amount
+                # until I figure out how to make it add up healing instead of stacking messages
+                # it will stay commented out
+                f"You consume the {self.parent.name}, and recover some HP!",
                 color.health_recovered,
             )
             self.consume()

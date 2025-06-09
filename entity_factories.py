@@ -1,3 +1,5 @@
+import random
+
 from entity import Actor, Item
 from components.fighter import Fighter
 from components.ai import HostileEnemy
@@ -39,7 +41,7 @@ health_potion = Item(
     char="8",
     color=(127, 0, 255),
     name="Health Potion",
-    consumable=consumable.HealingConsumable(healingamount=5),
+    consumable=consumable.HealingConsumable(healingamount=random.randint(3,9)),
 )
 
 lightning_scroll = Item(
