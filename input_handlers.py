@@ -415,8 +415,17 @@ class InventoryEventHandler(AskUserEventHandler):
         if number_of_items_in_inventory > 0:
             for i, item in enumerate(self.engine.player.inventory.items):
                 item_key = str(i + 1)
+
+                is_equipped = self.engine.player.equipment.item_is_equipped(item)
+
                 quantity = getattr(item, "quantity", 1)
-                display_name = f"{item.name} (x{quantity})" if quantity > 1 else item.name
+
+                if is_equipped:
+                    display_name = f"{item.name} (x{quantity}) (E)" \
+                        if quantity > 1 else f"{item.name} (E)"
+                else:
+                    display_name = f"{item.name} (x{quantity})" if quantity > 1 else item.name
+
                 console.print(x + 1, y + i + 1, f"({item_key}) {display_name}")
         else:
             console.print(x + 1, y + 1, "(Empty)")
@@ -443,7 +452,12 @@ class InventoryActivateHandler(InventoryEventHandler):
     TITLE = "Select an item to use"
 
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
-        return item.consumable.get_action(self.engine.player)
+        if item.consumable:
+            return item.consumable.get_action(self.engine.player)
+        elif item.equippable:
+            return actions.EquipAction(self.engine.player, item)
+        else:
+            return None
 
 
 class InventoryDropHandler(InventoryEventHandler):
