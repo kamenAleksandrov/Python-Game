@@ -14,20 +14,20 @@ class Equippable(BaseComponent):
     def __init__(
             self,
             equipment_type: EquipmentType,
-            power_bonus: int = 0,
+            attack_bonus: int = 0,
             defence_bonus: int = 0,
     ):
         self.equipment_type: EquipmentType
-        self.power_bonus = power_bonus
+        self.attack_bonus = attack_bonus
         self.defense_bonus = defence_bonus
 
 class Dagger(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=2)
+        super().__init__(equipment_type=EquipmentType.WEAPON, attack_bonus=2)
 
 class Sword(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=4)
+        super().__init__(equipment_type=EquipmentType.WEAPON, attack_bonus=4)
 
 class LeatherArmor(Equippable):
     def __init__(self) -> None:
