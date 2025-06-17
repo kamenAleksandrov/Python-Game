@@ -7,9 +7,9 @@ from equipment_types import EquipmentType
 
 if TYPE_CHECKING:
     from entity import Item
-    
+
 class Equippable(BaseComponent):
-    parent = Item
+    parent: Item
 
     def __init__(
             self,
@@ -17,7 +17,7 @@ class Equippable(BaseComponent):
             attack_bonus: int = 0,
             defence_bonus: int = 0,
     ):
-        self.equipment_type: EquipmentType
+        self.equipment_type = equipment_type
         self.attack_bonus = attack_bonus
         self.defense_bonus = defence_bonus
 
