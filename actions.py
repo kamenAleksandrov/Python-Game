@@ -139,7 +139,7 @@ class MeleeAction(ActionWithDirection):
         attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
         attack_roll = random.randint(1, 5)
         damage = random.randint(1, self.entity.fighter.attack)
-        armor_pernetration = target.fighter.defence - self.entity.fighter.precision
+        armor_pernetration = target.fighter.defense - self.entity.fighter.precision
         if armor_pernetration < 0:
             armor_pernetration = 0
 
@@ -165,6 +165,15 @@ class MeleeAction(ActionWithDirection):
                     self.engine.message_log.add_message(
                         f"{attack_desc} but does no damage.", attack_color
                     )
+
+class EquipAction(Action):
+    def __init__(self, entity: Actor, item: Item):
+        super().__init__(entity)
+
+        self.item = item
+
+    def perform(self) -> None:
+        self.entity.equipment.toggle_equip(self.item)
 
 
 class MovementAction(ActionWithDirection):
