@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import pygame #this needs to be ad the top or else it throws and error...
 import tcod
 import traceback
 import exceptions
 import input_handlers
 import color
+from components.sound_mixer import SoundMixer
 
 import entity_factories
 import setup_game
@@ -22,6 +24,9 @@ def main() -> None:
     )
 
     handler: input_handlers.BaseEventHandler = setup_game.MainMenu()
+
+    sound_mixer = SoundMixer()
+    sound_mixer.play_music()
 
     # this is how we create the map
     with tcod.context.new_terminal(
@@ -71,7 +76,8 @@ if __name__ == "__main__":
 # todo keybinds menu
 # .done level up!
 # .done add dungeon floors
-# todo gear?
+# .done gear
+# todo improve gear
 # todo animate attacks and maybe use mouse click to attack. you get 1 attack per turn
 # .done inventory should be 1-n and best be clickable and not a-z.
 # todo add more monster types and give them ranged attacks
