@@ -3,6 +3,8 @@ import random
 import time
 from typing import List
 
+from utils import resource_path
+
 
 class SoundMixer:
     def __init__(self):
@@ -10,8 +12,11 @@ class SoundMixer:
         self.last_ambient_time = time.time()
         self.ambient_delay = random.randint(25, 45)
 
+        ambient_sound_path = resource_path("sound/music/echo-dungeon-70538.mp3")
+        music_path = resource_path("sound/music/a_dungeon_ambience_loop-79423.mp3")
+
         self.ambient_sounds: List[pygame.mixer.Sound] = [
-            pygame.mixer.Sound("sound/music/echo-dungeon-70538.mp3"),
+            pygame.mixer.Sound(ambient_sound_path),
         ]
 
         # self.sfx = {
@@ -20,7 +25,7 @@ class SoundMixer:
         #     "hit": pygame.mixer.Sound("sounds/hit.wav"),
         # }
 
-        pygame.mixer.music.load("sound/music/a_dungeon_ambience_loop-79423.mp3")
+        pygame.mixer.music.load(music_path)
         pygame.mixer.music.set_volume(0.5)
 
     def play_music(self, loop: bool = True):
@@ -38,4 +43,4 @@ class SoundMixer:
         if current_time - self.last_ambient_time >= self.ambient_delay:
             random.choice(self.ambient_sounds).play()
             self.last_ambient_time = current_time
-            self.ambient_delay = random.randint(15,30)
+            self.ambient_delay = random.randint(15, 30)

@@ -20,7 +20,10 @@ import entity_factories
 import input_handlers
 from game_map import GameWorld
 
-background_image = tcod.image.load("Images/main_menu_image_resized.png")[:, :, :3]
+from utils import resource_path
+
+image_path = resource_path("images/main_menu_image_resized.png")
+background_image = tcod.image.load(image_path)[:, :, :3]
 
 
 def new_game() -> Engine:

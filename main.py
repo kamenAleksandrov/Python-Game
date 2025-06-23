@@ -5,6 +5,7 @@ import traceback
 import exceptions
 import input_handlers
 import color
+from utils import resource_path
 from components.sound_mixer import SoundMixer
 
 import entity_factories
@@ -19,8 +20,10 @@ def main() -> None:
     screen_width = 80
     screen_height = 50
 
+    image_path = resource_path("images/dejavu10x10_gs_tc.png")
+
     tileset = tcod.tileset.load_tilesheet(
-        "Images/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
+        image_path, 32, 8, tcod.tileset.CHARMAP_TCOD
     )
 
     handler: input_handlers.BaseEventHandler = setup_game.MainMenu()
