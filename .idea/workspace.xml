@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38fe7103-c585-4b70-8ddd-7e74b04796f0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/dejavu10x10_gs_tc.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/dejavu10x10_gs_tc.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/main_menu_image.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/main_menu_image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/main_menu_image_resized.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/main_menu_image_resized.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/menu_background.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/menu_background.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/sound_mixer.py" beforeDir="false" afterPath="$PROJECT_DIR$/components/sound_mixer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savegame.sav" beforeDir="false" afterPath="$PROJECT_DIR$/savegame.sav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup_game.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
