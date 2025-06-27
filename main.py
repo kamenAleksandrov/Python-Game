@@ -73,18 +73,19 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# todo add sound to the game
+# done add sound to the game
+# todo add more sound effects
 # todo improve npc ai, maybe move away from turn based
 # todo npc can drop loot on death
-# todo keybinds menu
-# .done level up!
-# .done add dungeon floors
-# .done gear
+# done keybinds menu
+# done level up!
+# done add dungeon floors
+# done gear
 # todo improve gear
 # todo animate attacks and maybe use mouse click to attack. you get 1 attack per turn
-# .done inventory should be 1-n and best be clickable and not a-z.
+# done inventory should be 1-n and best be clickable and not a-z.
 # todo add more monster types and give them ranged attacks
-# .done add main menu
-# .done function to save game
-# .done auto pickup
+# done add main menu
+# done function to save game
+# done auto pickup
 # todo dropped items can be of higher quantity and can stack

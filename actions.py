@@ -223,4 +223,4 @@ class TakeStairsAction(Action):
                 "You delve deeper into the dungeon!", color.descend
             )
         else:
-            raise exceptions.Impossible("There are ne stair here.")
+            raise exceptions.Impossible("There are no stairs here.")

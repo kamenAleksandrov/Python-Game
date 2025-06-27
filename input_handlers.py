@@ -157,6 +157,8 @@ class MainGameEventHandler(EventHandler):
             return CharacterScreenEventHandler(self.engine)
         elif key == tcod.event.KeySym.m:
             return LookHandler(self.engine)
+        elif key == tcod.event.KeySym.k:
+            return KeybindingsHandler(self.engine)
         return action
 
 
@@ -595,3 +597,46 @@ class PopupMessage(BaseEventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[BaseEventHandler]:
         """Any key returns to the parent handler."""
         return self.parent
+
+class KeybindingsHandler(AskUserEventHandler):
+    TITLE = "Keybindings"
+
+    def on_render(self, console: tcod.Console) -> None:
+        super().on_render(console)
+
+        width = 45
+        height = 17
+        x = console.width // 2 - width // 2
+        y = console.height // 2 - height // 2
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            title=self.TITLE,
+            clear=True,
+            fg=(255, 255, 255),
+            bg=(0, 0, 0),  # Solid black background
+        )
+
+        bindings = [
+            ("Move / Attack", "Arrow Keys / WASD"),
+            ("Diagonal Move / Attack", "QEZX"),
+            ("Skip Turn", "."),
+            ("Character Menu", "C"),
+            ("Inventory", "I"),
+            ("Use Item", "1-9"),
+            ("Activate Item", "Enter / Mouse Click"),
+            ("Pick Up Item", "G"),
+            ("Drop Item Menu", "U"),
+            ("Move Around the Map", "M"),
+            ("History", "H"),
+            ("Keybindings", "K"),
+            ("Confirm", "ENTER"),
+            ("Descent into dungeon", "L/RSHIFT + ."),
+            ("Quit", "ESC"),
+        ]
+
+        for i, (action, key) in enumerate(bindings):
+            console.print(x + 2, y + 1 + i, f"{action:<20} : {key}")
