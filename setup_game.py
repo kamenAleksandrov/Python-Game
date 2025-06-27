@@ -111,6 +111,8 @@ class MainMenu(input_handlers.BaseEventHandler):
                 traceback.print_exc()
                 return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
         elif event.sym == tcod.event.KeySym.n:
-            return input_handlers.MainGameEventHandler(new_game())
+            engine = new_game()
+            game_handler = input_handlers.MainGameEventHandler(engine)
+            return input_handlers.KeybindingsHandler(engine, game_handler)
 
         return None

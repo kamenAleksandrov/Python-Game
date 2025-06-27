@@ -158,7 +158,7 @@ class MainGameEventHandler(EventHandler):
         elif key == tcod.event.KeySym.m:
             return LookHandler(self.engine)
         elif key == tcod.event.KeySym.k:
-            return KeybindingsHandler(self.engine)
+            return KeybindingsHandler(self.engine, self)
         return action
 
 
@@ -600,6 +600,14 @@ class PopupMessage(BaseEventHandler):
 
 class KeybindingsHandler(AskUserEventHandler):
     TITLE = "Keybindings"
+
+    def __init__(self, engine: Engine, next_handler: BaseEventHandler):
+        super().__init__(engine)
+        self.next_handler = next_handler
+
+    def ev_keydown(self, event: tcod.event.KeyDown) -> BaseEventHandler:
+        # On any key press, return to the main game handler
+        return self.next_handler
 
     def on_render(self, console: tcod.Console) -> None:
         super().on_render(console)
