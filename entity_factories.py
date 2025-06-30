@@ -7,6 +7,9 @@ from components import consumable, equippable
 from components.inventory import Inventory
 from components.level import Level
 from components.equipment import Equipment
+from SpriteManager import Sprite
+
+player_idle_sprite = Sprite("images/0x72_DungeonTilesetII_v1.7/frames/Knight/Male/idle/", frame_duration=0.2)
 
 player = Actor(
     char="P",
@@ -17,6 +20,7 @@ player = Actor(
     inventory=Inventory(capacity=9),
     level=Level(level_up_base=50),
     equipment=Equipment(),
+    sprite=player_idle_sprite,
     )
 
 orc = Actor(

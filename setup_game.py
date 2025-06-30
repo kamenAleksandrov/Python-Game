@@ -15,6 +15,7 @@ from tcod.libtcodpy import map_get_height, console_get_width
 from PIL import Image
 
 import color
+from SpriteManager import Sprite
 from engine import Engine
 import entity_factories
 import input_handlers

@@ -4,6 +4,7 @@ import copy
 import math
 from typing import Optional, Tuple, TypeVar, TYPE_CHECKING, Type, Union
 
+from SpriteManager import Sprite
 from render_order import RenderOrder
 
 if TYPE_CHECKING:
@@ -32,7 +33,8 @@ class Entity:
             color: Tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unnamed>",
             blocks_movement: bool = False,
-            render_order: RenderOrder = RenderOrder.CORPSE
+            render_order: RenderOrder = RenderOrder.CORPSE,
+            sprite: Sprite = None,
     ):
         self.x = x
         self.y = y
@@ -41,6 +43,7 @@ class Entity:
         self.name = name
         self.blocks_movement = blocks_movement
         self.render_order = render_order
+        self.sprite = sprite
         if parent:
             # If parent isn't provided now then it will be set later.
             self.parent = parent
@@ -91,7 +94,7 @@ class Actor(Entity):
             inventory: Inventory,
             level: Level,
             equipment: Equipment,
-
+            sprite: Optional[Sprite] = None,
     ):
         super().__init__(
             x=x,
@@ -101,6 +104,7 @@ class Actor(Entity):
             name=name,
             blocks_movement=True,
             render_order=RenderOrder.ACTOR,
+            sprite=sprite,
         )
 
         self.ai: Optional[BaseAI] = ai_cls(self)

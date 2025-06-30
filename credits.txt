@@ -1,0 +1,7 @@
+sound:
+https://pixabay.com/users/freesound_community-46691455/
+- a_dungeon_ambience_loop-79423
+- echo-dungeon-70538
+art:
+https://0x72.itch.io/dungeontileset-ii
+- sprites
